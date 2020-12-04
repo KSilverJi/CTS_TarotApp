@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>쉼;타로</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="format-detection" content="telephone=no"> <!--숫자를 전화로 자동링크 방지-->
+    
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--애플기종의 상단 주소줄 감춤-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">  <!--아이폰 주소창의 컬러값을 블랙으로 설정-->
+
+    <link rel="stylesheet" href="style.css">
+    <!--js-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body style="background-color: black;">
+<div id="keep-container">
+    <div style="margin:8vw;">
+        <div style="text-align: center;">
+            <p style="font-weight: bold; font-size: 4vw;">Keep</p>
+        </div>
+
+        <div class="tag-list">
+            <div class="default-tag">시험</div>
+        </div>
+
+        <div class="keep-card-list">
+
+        </div>
+    </div>
+</div>
+
+    <!--결과화면-->
+    <div id="keep-detail">
+        <div class="result-nav">
+            <img src="img/icon/icon_X.png" onclick="location.href='choice.html'" style="width:4vw;">
+            <img src="img/icon/icon_share.png" style="width:3vw; float:right;">
+            <img src="img/icon/icon_tag_black_sel.png" id="keep-btn" onclick="likeit()">
+        </div>
+        <div class="card">
+            <h2>화연님이 뽑으신 타로는</h2>
+            <h2 class="cardname">{{ cardname }}</h2>
+            <h2>카드입니다.</h2>
+            <img src="{{ illust }}" class="card-illust">
+            <br><img src="img/icon/icon_menu_main_black.png" style="width:10vw; margin:5vw;">
+            <h2 style="color: #000000;">- 타로 결과 -</h2>
+		    <h2 style="font-weight:bold;">{{ keyword }}</h2>
+		    <h2 style="font-weight: normal; font-style: normal; text-align:left;">{{ analysis }}</h2>
+		    <table style="text-align:left;">
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 숫자</h2>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckynum }}</h2>
+                </tr>
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 색깔</h2>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckycolor }}</h2>
+                </tr>
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 시간</h2></td>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckytime }}</h2></td>
+                </tr>
+            </table>
+
+            <button class="btn" onclick="location.href='diary.html'">
+                다이어리 작성하기
+            </button>
+            <button class="btn" onclick="location.href='meditation.html'">
+                명상하기
+            </button>
+            <br><img src="img/icon/icon_menu_main_black.png" style="width:10vw; margin:5vw;">
+        </div>
+    </div>
+
+    <footer class="footer" style="bottom:0;">
+        <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
+        <img src='img/icon/icon_menu_tag_sel.png' onclick="location.href='keep.html'" class="icon">
+        <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
+        <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
+        <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
+    </footer>
+    <script>
+    $(function(){
+        let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
+        $.getJSON("test-data.json", function(json) {
+
+            var cards = json
+
+            /* 로컬스토리지에 디데이 데이터가 없을 경우 */
+            if (storedkeeps == null){
+                $('.keep-card-list').html('<a style="line-height:60vh; t">keep한 카드가 없습니다.</a>');
+            }
+            /* 디데이 데이터가 있을 경우 다 받아오기 */
+            else{
+                let keepLists = Object.keys(storedkeeps).map(k => storedkeeps[k]);
+                if(keepLists.length>0){
+                    let keepLi ='';
+
+                    keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                    <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail()" >
+
+                    `));
+
+            }
+                else{
+                    $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>>');
+                }
+            }
+
+
+        });
+    
+    });
+
+    function keep_detail() {
+
+        document.getElementById("keep-container").style.display = "none";
+        document.getElementById("keep-detail").style.display = "block";
+
+        let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
+        console.log(storedkeeps);
+
+        /*$.getJSON("test-data.json", function(json) {
+            var cards = json;
+            console.log(cards);
+        }*/
+    }
+
+    </script>
+
+</body>

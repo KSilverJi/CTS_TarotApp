@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>쉼;타로</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="format-detection" content="telephone=no"> <!--숫자를 전화로 자동링크 방지-->
+    
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--애플기종의 상단 주소줄 감춤-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">  <!--아이폰 주소창의 컬러값을 블랙으로 설정-->
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+
+</head>
+
+<body style="margin:0; height: 100%;">
+    <div class="container">
+        <div class="d-day-circle"></div>
+        <h1>원하는 타로 주제를 정해보세요.</h1>
+        <section class="theme" data-sizes="50vw">
+            <div>
+                <img src='img/시험카드.png' class="theme-card" onclick="location.href='choice.html'">
+            </div>
+            <div>
+                <img src='img/면접카드.png' class="theme-card" onclick="location.href='choice_2.html'">
+            </div>
+            <div>
+                <img src='img/진로카드.png' class="theme-card" onclick="location.href='choice.html'">
+            </div>
+            <div>
+                <img src='img/일탈카드.png' class="theme-card" onclick="location.href='choice.html'">
+            </div>
+            <div>
+                <img src='img/공부카드.png' class="theme-card" onclick="location.href='choice.html'">
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
+        <img src='img/icon/icon_menu_tag.png' onclick="location.href='keep.html'" class="icon">
+        <img src='img/icon/icon_menu_main_sel.png' onclick="location.href='home.html'" class="icon">
+        <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
+        <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
+    </footer>
+
+
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+
+    <script type="text/javascript">
+    <!--카드 슬라이드 제이쿼리-->
+        $('.theme').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '0px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '60px',
+                        slidesToShow: 1,
+                    }
+                }
+            ]
+        });
+
+    /* 디데이 받아오기 */
+    $(function(){
+        let storedEvents = JSON.parse(localStorage.getItem('events'));
+    
+        /* 로컬스토리지에 디데이 데이터가 없을 경우 */
+        if (storedEvents == null){
+            $('.d-day-circle').html('<a href="calendar.html">D-Day를 설정해보세요</a>');
+        }
+        /* 디데이 데이터가 있을 경우 다 받아오기 */
+        else{
+            let eventsList = Object.keys(storedEvents).map(k => storedEvents[k]);
+            if(eventsList.length>0){
+                let eventsLi ='';
+
+                /* 첫 번째 디데이만 가져옴 */
+                eventsList.filter(event =>  $('.d-day-circle').html(`
+                    <div class="d-day-title-view">
+                        <a style="font-size:6vw;" href="d-day.html">${event.eventText}
+                        D - ${ Math.ceil( (new Date(parseInt(event.eventDate.substr(4,8)), parseInt(event.eventDate.substr(2,2)), parseInt(event.eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }</a>
+                        </div>
+                `));
+            }
+            else{
+                $('.d-day-circle').html('<a href="calendar.html">D-Day를 설정해보세요</a> ');
+            }
+        }
+    })
+    </script>
+</body>

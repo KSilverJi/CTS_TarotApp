@@ -1,0 +1,677 @@
+
+*{-webkit-text-size-adjust:none;} /*글자크기 자동조정방지*/
+*{-webkit-text-size-adjust:auto;} /*화면 폭에 맞추어 자동조절*/
+*{-webkit-text-size-adjust:100%;} /*폰트크기를 지정된 사이즈로 변경*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); /*노토산스*/
+
+@font-face {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: 100;
+    src: local(※),
+        url('fonts/AritaBuri/AritaBuriL.woff2') format('woff2'), 
+        url('fonts/AritaBuri/AritaBuriL.woff') format('woff'),
+        url('fonts/AritaBuri/AritaBuriL.ttf') format('truetype'),
+        url('fonts/AritaBuri/AritaBuriL.otf') format('opentype'),
+        url('fonts/AritaBuri/AritaBuriL.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: 400;
+    src: local(※),
+        url('fonts/AritaBuri/AritaBuriM.woff2') format('woff2'), 
+        url('fonts/AritaBuri/AritaBuriM.woff') format('woff'),
+        url('fonts/AritaBuri/AritaBuriM.ttf') format('truetype'),
+        url('fonts/AritaBuri/AritaBuriM.otf') format('opentype'),
+        url('fonts/AritaBuri/AritaBuriM.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: 700;
+    src: local(※),
+        url('fonts/AritaBuri/AritaBuriSB.woff2') format('woff2'), 
+        url('fonts/AritaBuri/AritaBuriSB.woff') format('woff'),
+        url('fonts/AritaBuri/AritaBuriSB.ttf') format('truetype'),
+        url('fonts/AritaBuri/AritaBuriSB.otf') format('opentype'),
+        url('fonts/AritaBuri/AritaBuriSB.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: 900;
+    src: local(※),
+        url('fonts/AritaBuri/AritaBuriL.woff2') format('woff2'), 
+        url('fonts/AritaBuri/AritaBuriB.woff') format('woff'),
+        url('fonts/AritaBuri/AritaBuriB.ttf') format('truetype'),
+        url('fonts/AritaBuri/AritaBuriB.otf') format('opentype'),
+        url('fonts/AritaBuri/AritaBuriB.eot') format('embedded-opentype');
+}
+
+
+.container {
+    background-color: #000000;
+    background-image: url('img/background_1.png');
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+
+    padding-top: 10%;
+}
+
+.footer {
+    background: black;
+    height: 9vh;
+    position: absolute;
+    width: 100%;
+    padding-top: 3vh;
+}
+
+
+/* 홈화면 */
+
+.d-day-circle {
+    width:90%;
+    margin-left: 5%;
+    height:120px;
+    border:1pt solid #D2C39B;
+    background: #000000;
+    border-radius:50%;
+
+    line-height: 120px;
+    text-align: center;
+    
+}
+
+a {
+    text-decoration: none;
+    font-family: 'AritaBuri';
+    color: #D2C39B;
+
+    font-weight: 500;
+    font-size: 4vw;
+
+    text-align: center;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 22px;
+    color: #F2F2F2;
+    text-align: center;
+
+    margin: 10%;
+}
+
+.theme {
+    color: white;
+}
+
+.theme-card {
+    width: -webkit-fill-available;
+    cursor: pointer;
+}
+
+.icon {
+    margin-left: 10%;
+    height: 4.5vh;
+}
+
+/* 타로카드 선택 화면 */
+
+p {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+
+    color: #F2F2F2;
+}
+
+.circle {
+    width: 54px;
+    height: 50px;
+
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 27px;
+
+    display: block;
+    margin: auto;
+}
+
+#all-cards {
+    margin-left: 5%;
+}
+
+.back-of-card {
+    width: 15%;
+    cursor: pointer;
+    margin-bottom: 4%;
+    padding:0;
+
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: transparent;
+}
+
+.shuffle {
+    background: #000000;
+    border: 0.5px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 64px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10%;
+    margin-top: 10%;
+}
+
+.list-complete {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+.list-complete-item {
+    transition: transform 1s;
+    flex: 1 1 25%;
+    height: 200px;
+    padding: 10px;
+  /*   display: inline-block;
+    margin-right: 10px; */
+}
+.list-complete-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+.list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active for <2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+}
+  .list-complete-leave-active {
+    position: absolute;
+}
+
+/* 결과 보기 전 화면 */
+#before {
+    display:none;
+}
+
+.before-massage {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4.5vw;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.before-back-of-card {
+    width:57vw;
+    margin:3vh;
+}
+
+.view-result {
+    background: #D2C39B;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 64px;
+    width: 82vw;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4vw;
+    line-height: 10vh;
+
+    color: #5F5141;
+}
+
+.re-choice {
+    background: #000000;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 64px;
+    width: 82vw;
+    margin-top: 3vw;
+    margin-bottom: 20%;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4vw;
+    line-height: 10vh;
+
+    color: #F2F2F2;
+}
+
+
+/* 타로 분석 결과 화면 */
+
+#choice-result {
+    background-image: url('img/background_2.png');
+    background-repeat : no-repeat;
+    background-size : cover;
+
+    padding-top:30%;
+    padding-left: 10%;
+    padding-right: 10%;
+    display: none;
+
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+h2 {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    text-align: center;
+    margin-top:0;
+
+    color: #7C7C7C;
+}
+
+.card {
+    text-align: center;
+    width:100%;
+}
+
+.cardname {
+    font-family: 'AritaBuri';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    margin:1vw;
+
+    color: #5451FF;
+}
+
+.card-illust {
+    border-radius: 10px;
+    width: 40vw;
+}
+
+.btn {
+    background: #000000;
+    border-radius: 64px;
+    width:100%;
+    color:white;
+    height: 12vw;
+    border:0;
+    margin-bottom: 4vw;
+
+    font-size: 4vw;
+}
+
+#keep-btn {
+    width:6vw;
+    float:right;
+    margin-right:2vw;
+}   
+
+/* 다이어리 */
+
+.diary-nav {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 4vw;
+    line-height: 27px;
+
+    color: #F2F2F2;
+}
+
+#diary-container {
+    margin-top: 20%;
+    margin-left: 8.7vw;
+    margin-right: 8.7vw;
+}
+
+.d-day-title {
+    background: #000000;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 17px;
+
+    width: 82vw;
+    height: 13vh;
+
+    padding-left: 7vw;
+    padding-right: 5vw;
+    padding-top: 3vh;
+    
+    margin-top: 6vw;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.5vw;
+    line-height: 22px;
+    color: #D2C39B;
+}
+
+.d-day-message {
+    font-size: 2.7vw;
+    font-weight: 200;
+}
+
+
+.important-d-day {
+    background: #D2C39B;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 17px;
+    padding: 2vw;
+
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3vw;
+    line-height: 26px;
+    color: #5F5141;
+    text-align: left;
+}
+
+.d_day_list {
+    background: #000000;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 17px;
+    width: 82vw;
+    height: 65px;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    margin-bottom: 4vw;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 4vw;
+
+    color: #D2C39B;
+
+}
+
+#diary-write {
+    display:none;
+    padding: 10vw;
+
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 4vw;
+    line-height: 27px;
+
+    color: black;
+    text-align: center;
+}
+
+#popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    z-index: 1;
+}
+  
+  #popup.hide {
+    display: none;
+  }
+  
+  #popup.has-filter {
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  
+  /* 카드 추가 팝업 */
+  #popup .content {
+    width:80vw;
+    height: 70vh;
+    padding: 4vw;
+
+    background:white;
+    color:black;
+    border-radius: 30px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+  }
+
+/* 다이어리-캘린더 */
+.calendar-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 32px;
+}
+
+#s_m {
+    font-family: 'Aritaburi';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 5.5vw;
+    line-height: 29px;
+
+    color: #D2C39B;
+}
+
+#cal-year {
+    font-size: 10px;
+}
+
+.card-header > .prevMonth {
+    padding-left: 30vw;
+    font-size: x-large;
+}
+
+.card-header > .nextMonth {
+    padding-right: 30vw;
+    font-size: x-large;
+}
+
+thead > span {
+    color: #D2C39B;
+}
+
+.page-hero h3{
+    font-size:3rem;
+    font-weight:bold;
+    text-shadow:-1px -1px 1px #460000,2px 2px 1px #ff4965;
+    text-transform:uppercase;color:#bd122d}
+
+html body .page-hero p{
+    color:#f1acb7
+}
+
+html body .card{overflow:hidden;box-shadow:0 0 black;}
+
+html body .card-header{background:#000000; color:#fff; opacity:0.8; padding:0 !important; color: #828282;}
+
+html body .card-header .prevMonth{cursor:pointer}
+
+html body .card-header .nextMonth{cursor:pointer}
+
+html body .card-body{background:#000000; color:#fff; opacity:0.8;}
+
+html body .card-body .days span{
+    color:#fff;
+    border-radius:50%;
+    display:inline-block;
+    height:45px;width:45px;
+    line-height:45px;
+    cursor:pointer}
+    
+
+html body .card-body .dates span{
+    color: white;
+    border-radius:50%;
+    display:inline-block;
+    height:45px;width:45px;
+    line-height:45px;cursor:pointer
+}
+
+html body .card-body .dates span.active,html body .card-body .dates span:hover{
+    background: #C4C4C4;
+    color: #3C38FF;
+}
+
+html body .card-body .dates span.ntMonth{color:#938e8e;}
+
+html body .card-body .dates span.ntMonth:hover{background:#ffeef0;color:#000}
+
+html body .card#event .card-header .close{color:#fff;opacity:1}
+
+html body .card#event .card-body .events-today{height:210px;overflow-x:hidden; margin-top:0 !important;}
+
+html body .card#event .card-body .events-input .data-invalid{border-color:red}
+
+html body .card#event .card-body .events-input .error{
+    font-size:12px;
+    color:red;
+    position:absolute;
+    top:100%
+}
+
+.today-active {
+    background-color: #3C38FF;
+}
+
+.target-date {
+    font-family: 'Aritaburi';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 6vw;
+    line-height: 6.5vw;
+    text-align: center;
+    float: left;
+
+    color: #D2C39B;
+}
+
+@media(max-width: 767px){
+    #event{
+        margin-top:0 !important;
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }
+
+    html body .card-body .days span{
+        height:38px;
+        width:38px;
+        line-height:38px;
+        font-size:.8rem
+    }
+    html body .card-body .dates span{
+        height:38px;
+        width:38px;
+        line-height:38px;
+        font-size:.8rem
+    }
+    html body .card#event .card-body .events-today{
+        height:auto}}
+
+
+#add-event-page {
+    display:none;
+    background:black;
+}
+
+.placeholder {
+    color: #7C7C7C;
+}
+
+.events_list {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3.5vw;
+    line-height: 6vw;
+    text-align: left;
+    margin-left: 7vw;
+    margin-bottom: 2vw;
+
+    color: #D2C39B;
+}
+
+/* 명상하기 */
+
+.today-saying {
+    background: #000000;
+    border: 1px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 19px;
+
+    padding-left: 4vw;
+    padding-right: 4vw;
+}
+
+.medi-btn {
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 64px;
+    margin-top:6vw;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 4vw;
+    line-height: 9vh;
+    text-align: center;
+
+    color: #5F5141;
+}
+
+.left-align {
+    text-align-last: left;
+}
+
+/* 보관함 Keep */
+
+.default-tag {
+    background: #D2C39B;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 17px;
+    width: 18vw;
+    text-align:center;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.5vw;
+    line-height: 5vh;
+    color: #5F5141;
+}
+
+.keep-card-list {
+    text-align:left;
+    color:white;
+    margin-top:5vh;
+}
+
+.keep-img {
+    width:25vw;
+
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+#keep-detail {
+    display:none;
+    background-image: url('img/background_2.png');
+}
+

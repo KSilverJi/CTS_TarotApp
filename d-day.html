@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>쉼;타로</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="format-detection" content="telephone=no"> <!--숫자를 전화로 자동링크 방지-->
+    
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--애플기종의 상단 주소줄 감춤-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">  <!--아이폰 주소창의 컬러값을 블랙으로 설정-->
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body style="background-color: black; margin:8vw;">
+
+    <!-- 디데이 ver2 -->
+    <div style="text-align: center;">
+        <img src="img/icon/icon_back.png" style="float:left; width:2vw; margin-top:4vh;" onclick="history.go(-1)">
+        <p style="font-weight: bold; font-size: 4vw; display: inline-block">디데이</p>
+        <p style="font-weight: bold; font-size: 3.5vw; color: #D2C39B; float: right;" onclick="location.href='diary.html'">완료</p>
+    </div>
+    <br><br><br><br>
+    <!-- 이벤트 리스트 -->
+    <div class="all-events">
+
+    </div>
+
+    <script>
+
+    $(function(){
+        let storedEvents = JSON.parse(localStorage.getItem('events'));
+    
+        /* 로컬스토리지에 디데이 데이터가 없을 경우 */
+        if (storedEvents == null){
+            $('.all-events').html('<a class="text-center">등록된 디데이가 없습니다.</a class="text-center">');
+        }
+        /* 디데이 데이터가 있을 경우 다 받아오기 */
+        else{
+            let eventsList = Object.keys(storedEvents).map(k => storedEvents[k]);
+            if(eventsList.length>0){
+                let eventsLi ='';
+
+                eventsList.forEach(event =>  $('.all-events').html(eventsLi +=`
+                <img src="img/icon/icon_delete.png" class="remove-event" style="position:absolute; width:4vw;" data-event-id="${event.id}" data-dismiss="alert" aria-label="Close">
+                <div class="d_day_list" role="alert">
+                
+                ${event.eventText}
+                
+                D - ${ Math.ceil( (new Date(parseInt(event.eventDate.substr(4,8)), parseInt(event.eventDate.substr(2,2)), parseInt(event.eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }
+                <br>
+                <span style="font-size:2vw; font-weight:400;">${event.eventDate.substr(4,8)+"."}${parseInt(event.eventDate.substr(2,2)) + 1 + '.'}${event.eventDate.substr(0,2)+"."}</span>
+                </div>`));
+            }
+            else{
+                $('.all-events').html('<a class="text-center">등록된 디데이가 없습니다.</a class="text-center">');
+            }
+        }
+
+
+        /* 디데이 삭제 */
+        function removeEvent(id){
+            let storedEvents = JSON.parse(localStorage.getItem('events'));
+            if(storedEvents != null){
+                storedEvents = storedEvents.filter( ev => ev.id != id );
+                localStorage.setItem('events', JSON.stringify(storedEvents));
+                location.reload();
+            }
+        }
+        $(document).on('click', '.remove-event', function(){
+            let eventId = $(this).data('event-id');
+            removeEvent(eventId);
+        })
+    })
+
+    </script>
+</body>
