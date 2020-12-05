@@ -17,9 +17,9 @@
 
 <body style="background-color: #000000; color: white; margin:0;">
     <div id="diary-container">
-        <div class="diary-nav">
+        <div id="diary-nav">
             <script> /*오늘날짜*/
-                let today = new Date();   
+                let today = new Date();
 
                 let month = today.getMonth() + 1;  // 월
                 let date = today.getDate();  // 날짜
@@ -37,21 +37,32 @@
             <!--<div class="events-today"></div>-->
         </div>
 
-        <hr style="border: 0.5px solid #6F6F6F; width:60vw; float:left; margin:3vw;">
+        <hr style="border: 0.5px solid #6F6F6F; width:62vw; float:left; margin-top:2.5vh; margin-bottom:3vh; margin-right:4vw;">
         <img src="img/icon/diary_img_view.png" style="width:4vw;">
         <img src="img/icon/diary_text_sel.png" style="width:4vw; margin-left:3vw; margin-top:2vw;">
+
+        <div class = "all-diary"></div>
         
     </div>
+
+    <footer class="footer" style="bottom:0;">
+        <img src='img/icon/icon_menu_diary_sel.png' onclick="location.href='diary.html'" class="icon">
+        <img src='img/icon/icon_menu_tag.png' onclick="location.href='keep.html'" class="icon">
+        <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
+        <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
+        <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
+    </footer>
 
     <div id="diary-write">
         <script>
             document.write(month + '월 ' + date + '일 ' + '(' + week[today.getDay()] + ')' );
         </script>
         <img src="img/icon/icon_add.png" style="float:right; width:6vw;" onclick="showPopup(true)">
-        <div style="margin-top:15vh;">
-            <div contentEditable="true" style="outline:none; position: relative; text-align:left;"></div>
-            <img src="img/diary_write.png" style="width: 82vw; position:relative;">
-            
+        <div style="margin-top:8vh;">
+            <img src="" id="select_card_view" style="width:32vw; border-radius: 10px;">
+            <br><h2 id="select_card_name" class="cardname" style="font-size:5vw;"></h2>
+            <img src="img/diary_write.png" style="width: 82vw; position:absolute; display:flex; margin-top: 5vh;">
+            <div id="diary_content" contentEditable="true"></div>
         </div>
 
         <button class="btn" onclick="save_new_diary()">
@@ -66,15 +77,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer" style="bottom:0;">
-        <img src='img/icon/icon_menu_diary_sel.png' onclick="location.href='diary.html'" class="icon">
-        <img src='img/icon/icon_menu_tag.png' onclick="location.href='keep.html'" class="icon">
-        <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
-        <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
-        <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
-    </footer>
-
 
 
     <script>
@@ -109,13 +111,12 @@
         }
     })
 
-    /* 다이어리 추가 */
+    /* 다이어리 추가 화면으로 전환 */
     function new_diary() {
         document.getElementById("diary-container").style.display = "none";
         document.getElementById("diary-write").style.display = "block";
         $('footer').css('display','none');
         $('body').css('background-color','white');
-
     }
 
     /* 다이어리 추가 - 카드 선택 팝업 */
@@ -150,7 +151,7 @@
 
                     keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
                 
-                    <img src="${cards[keep.id-1].illust}" id="${cards[keep.id-1].id}" class="keep-img" onClick="select_card_img(${cards[keep.id-1].id})" >
+                    <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="select_card_img(${cards[keep.id-1].id})" >
 
                     `));
                     
@@ -166,20 +167,30 @@
     
     });
 
-
+    /* 다이어리 추가 - 카드 선택 */
     function select_card_img(id) {
         var selected_card = id;
-        console.log(selected_card);
-        
+
+        $.getJSON("test-data.json", function(json){
+            cards=json;
+            card_src = cards[id-1].illust ;
+            card_name = cards[id-1].cardname;
+
+            document.getElementById("select_card_view").src = card_src;
+            document.getElementById("select_card_name").innerHTML = card_name;
+        });
+
         const popup = document.querySelector('#popup');
         popup.classList.add('hide');
     }
 
+    /* 다이어리 저장 */
     function save_new_diary() {
+        var diary_content = $('#diary_content').text();
+        var diary_card_name = $('#select_card_name').text();
 
-        /*
-        var card_id = document.getElementById("").name;
-        var diary_text = document.getElementById("context").innerHTML
+        var diary_date = $('#write_date').text();
+        console.log(diary_date);
 
         var existingdiary = JSON.parse(localStorage.getItem("diary"));
 
@@ -188,16 +199,47 @@
         }
 
         var entry = {
-            "id": card_id,
-            "text": diary_text
+            "diary_content": diary_content,
+            "card_name": diary_card_name,
         };
     
         localStorage.setItem("diary", JSON.stringify(entry));
         // Save allEntries back to local storage
         existingdiary.push(entry);
         localStorage.setItem("diary", JSON.stringify(existingdiary));
-        */
+
+        /* 다이어리 화면으로 돌아가기 세팅 */
+        location.reload();
     }
+
+    $(function(){
+        let storeddiary = JSON.parse(localStorage.getItem('diary'));
+        /* 로컬스토리지에 다이어리 데이터가 없을 경우 */
+        if (storeddiary == null){
+            $('.all-diary').html('<a style="line-height:60vh;">다이어리를 작성해보세요.</a>');
+        }
+        /* 다이어리 데이터 받아오기 */
+        else{
+            let diaryLists = Object.keys(storeddiary).map(k => storeddiary[k]);
+            if(diaryLists.length>0){
+                let diaryLi ='';
+
+                diaryLists.forEach(diary =>  $('.all-diary').html(diaryLi +=`
+
+                <img src="img/card-illust/${diary.card_name}.svg" class="diary-card-illust">
+                <p style="float:left; font-size:2vw; line-height:4vw; color:#7C7C7C; width:50vw; text-align:left;">${diary.diary_content}</p><br>
+                <hr style="border: 0.5px solid #6F6F6F; width:100%;">
+
+                `));
+
+        }
+            else{
+                $('.all-diary').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>>');
+            }
+        }
+
+    
+    });
 
 
     </script>
