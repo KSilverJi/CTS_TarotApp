@@ -10,31 +10,41 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">  <!--아이폰 주소창의 컬러값을 블랙으로 설정-->
 
     <link rel="stylesheet" href="style.css">
-    <!--js-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+    <!--slick-->
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
 </head>
 
-<body style="background-color: black; margin:0;">
-    <div style="text-align: center; margin:8vw;">
-        <p style="font-weight: bold; font-size: 3vw;">명상하기</p>
-        <img src="img/meditate_main.png" style="width:100%;">
+<body style="background-color: black; margin:0; text-align:center;">
+    <div id = "medi-home" style="margin:8vw;">
+        <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+        <img src="img/meditate_main.png" style="width:66vw;">
         <div class="today-saying">
-            <p style="font-weight:bold;">- 오늘의 명언 -</p>
-            <p>처음부터 겁먹지 말자. 막상 가보면 아무것도 아닌 게 세상엔 참으로 많다.</p>
+            <p style="font-weight:bold; font-size:3.5vw; text-align:left; color:white;">- 오늘의 명언 -</p>
+            <p id="phrase"></p>
+            <p id="from"></p>
         </div>
 
         <div class="left-align">
-            <p style="font-weight:bold;">이런 명상은 어때요?</p>
-            <p>화연님을 위해 준비한 명상이에요.</p>
-        </div>
-
-        <div class="medi-btn">
-            명상하기
+            <p style="font-size:4vw; font-weight:400; color:white; margin-top:3vh; margin-bottom:0;">이런 명상은 어때요?</p>
+            <p style="color: #DCDCDC; font-size:3vw; margin:auto;">당신을 위해 준비한 오늘의 명상이에요 :)</p>
         </div>
     </div>
+    
+        <div id="medi-theme">
+            <img src="img/medi/1.png" id="1" onclick="select_theme(id)">
+            <img src="img/medi/2.png" id="2" onclick="select_theme(id)">
+            <img src="img/medi/3.png" id="3" onclick="select_theme(id)">
+            <img src="img/medi/4.png" id="4" onclick="select_theme(id)">
+        </div>
 
-    <footer class="footer">
+        <img src ="img/icon/명상하기_선택전.png" id="medi-btn" onclick="meditation_start()">
+
+    <footer class="footer" style="text-align:left;">
         <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
         <img src='img/icon/icon_menu_tag.png' onclick="location.href='keep.html'" class="icon">
         <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
@@ -42,4 +52,45 @@
         <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
     </footer>
 
+    <div id = "medi-start">
+        <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+    </div>
+
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+/* 명언 랜덤 뽑기(자동) */
+$.getJSON("saying.json", function(json){
+    var index = Math.floor(json.saying.length * Math.random());
+    document.getElementById("phrase").innerHTML = json.saying[index].phrase;
+    if(json.saying[index].from==null) {
+        document.getElementById("from").innerHTML = ''
+    }
+    else {document.getElementById("from").innerHTML = '- ' + json.saying[index].from + ' -';}
+});
+
+/* 명상 테마 고르기 */
+$('#medi-theme').slick({
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  arrows:false,
+  centerMode: true,
+  centerPadding:'20px'
+});
+
+function select_theme(id) {
+    var clicked = 'img/medi/' + id + '_sel.png';
+    document.getElementById(id).src = clicked;
+    document.getElementById("medi-btn").src = 'img/icon/명상하기_선택후.png';
+}
+
+/* 명상하기 */
+function meditation_start() {
+    document.getElementById("medi-home").style.display = "none";
+    $('footer').css('display','none');
+    document.getElementById("medi-btn").style.display = "none";
+    document.getElementById("medi-theme").style.display = "none";
+    document.getElementById("medi-start").style.display = "block";
+}
+</script>
 </body>

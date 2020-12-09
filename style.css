@@ -403,7 +403,8 @@ h2 {
     font-size: 4vw;
 
     color: #D2C39B;
-
+    
+    position: relative;
 }
 
 #diary-write {
@@ -639,21 +640,25 @@ html body .card#event .card-body .events-input .error{
 
     padding-left: 4vw;
     padding-right: 4vw;
+    margin:auto;
+    width:82vw;
 }
 
-.medi-btn {
-    border: 0.5px solid #D2C39B;
-    box-sizing: border-box;
-    border-radius: 64px;
-    margin-top:6vw;
+#phrase {
+    font-size:3.5vw;
+    color: #DCDCDC;
+    text-align:left;
+}
 
-    font-style: normal;
-    font-weight: bold;
-    font-size: 4vw;
-    line-height: 9vh;
-    text-align: center;
+#from {
+    font-size:3.5vw;
+    color: #DCDCDC;
+    text-align: right;
+}
 
-    color: #5F5141;
+#medi-btn {
+    width:82vw;
+    margin-top:5vh;
 }
 
 .left-align {
