@@ -665,6 +665,26 @@ html body .card#event .card-body .events-input .error{
     text-align-last: left;
 }
 
+#medi-1 {
+    display: none;
+    margin: 8vw;
+}
+
+#medi-2 {
+    display: none;
+    margin: 8vw;
+}
+
+#medi-3 {
+    display: none;
+    margin: 8vw;
+}
+
+#medi-4 {
+    display: none;
+    margin: 8vw;
+}
+
 /* 보관함 Keep */
 
 .default-tag {

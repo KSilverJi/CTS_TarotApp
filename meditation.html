@@ -36,13 +36,13 @@
     </div>
     
         <div id="medi-theme">
-            <img src="img/medi/1.png" id="1" onclick="select_theme(id)">
-            <img src="img/medi/2.png" id="2" onclick="select_theme(id)">
-            <img src="img/medi/3.png" id="3" onclick="select_theme(id)">
-            <img src="img/medi/4.png" id="4" onclick="select_theme(id)">
+            <img src="img/medi/1.png" id="1" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
+            <img src="img/medi/2.png" id="2" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
+            <img src="img/medi/3.png" id="3" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
+            <img src="img/medi/4.png" id="4" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
         </div>
 
-        <img src ="img/icon/명상하기_선택전.png" id="medi-btn" onclick="meditation_start()">
+        <img src ="img/icon/명상하기_선택전.png" id="medi-btn">
 
     <footer class="footer" style="text-align:left;">
         <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
@@ -52,8 +52,39 @@
         <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
     </footer>
 
-    <div id = "medi-start">
+
+    <!-- 테마별 명상 재생 페이지 -->
+
+    <div id = "medi-1">
+        <img src="img/icon/icon_back.png" style="float:left; width:2.5vw;" onclick="history.go(0)">
         <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+        <a style="display:block; margin-top:10vh;">우울한 날을 위한 명상</a>
+        <img src="img/medi/1_ing.png" style="width:79vw; margin-top:8vh;">
+        <audio src="music/우울할때.mp3" controls>
+    </div>
+
+    <div id = "medi-2">
+        <img src="img/icon/icon_back.png" style="float:left; width:2.5vw;" onclick="history.go(0)">
+        <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+        <a style="display:block; margin-top:10vh;">집중 안되는 날을 위한 명상</a>
+        <img src="img/medi/2_ing.png" style="width:79vw; margin-top:8vh;">
+        <audio src="music/우울할때.mp3" controls>
+    </div>
+
+    <div id = "medi-3">
+        <img src="img/icon/icon_back.png" style="float:left; width:2.5vw;" onclick="history.go(0)">
+        <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+        <a style="display:block; margin-top:10vh;">푹 자고 싶은 날을 위한 명상</a>
+        <img src="img/medi/3_ing.png" style="width:79vw; margin-top:8vh;">
+        <audio src="music/잠.mp3" controls>
+    </div>
+
+    <div id = "medi-4">
+        <img src="img/icon/icon_back.png" style="float:left; width:2.5vw;" onclick="history.go(0)">
+        <p style="font-weight: bold; font-size: 4vw; margin:auto; color:white;">명상하기</p>
+        <a style="display:block; margin-top:10vh;">명상하기</a>
+        <img src="img/medi/4_ing.png" style="width:79vw; margin-top:8vh;">
+        <audio src="music/우울할때.mp3" controls>
     </div>
 
 <script type="text/javascript" src="slick/slick.min.js"></script>
@@ -75,22 +106,44 @@ $('#medi-theme').slick({
   slidesToScroll: 1,
   arrows:false,
   centerMode: true,
-  centerPadding:'20px'
+  centerPadding:'40px'
 });
 
 function select_theme(id) {
     var clicked = 'img/medi/' + id + '_sel.png';
     document.getElementById(id).src = clicked;
     document.getElementById("medi-btn").src = 'img/icon/명상하기_선택후.png';
+    $('#medi-btn').on('click', function(){
+        if(id==1) {
+            document.getElementById("medi-home").style.display = "none";
+            $('footer').css('display','none');
+            document.getElementById("medi-btn").style.display = "none";
+            document.getElementById("medi-theme").style.display = "none";
+            document.getElementById("medi-1").style.display = "block";
+        }
+        if(id==2) {
+            document.getElementById("medi-home").style.display = "none";
+            $('footer').css('display','none');
+            document.getElementById("medi-btn").style.display = "none";
+            document.getElementById("medi-theme").style.display = "none";
+            document.getElementById("medi-2").style.display = "block";
+        }
+        if(id==3) {
+            document.getElementById("medi-home").style.display = "none";
+            $('footer').css('display','none');
+            document.getElementById("medi-btn").style.display = "none";
+            document.getElementById("medi-theme").style.display = "none";
+            document.getElementById("medi-3").style.display = "block";
+        }
+        if(id==4) {
+            document.getElementById("medi-home").style.display = "none";
+            $('footer').css('display','none');
+            document.getElementById("medi-btn").style.display = "none";
+            document.getElementById("medi-theme").style.display = "none";
+            document.getElementById("medi-4").style.display = "block";
+        }
+    });
 }
 
-/* 명상하기 */
-function meditation_start() {
-    document.getElementById("medi-home").style.display = "none";
-    $('footer').css('display','none');
-    document.getElementById("medi-btn").style.display = "none";
-    document.getElementById("medi-theme").style.display = "none";
-    document.getElementById("medi-start").style.display = "block";
-}
 </script>
 </body>
