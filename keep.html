@@ -24,6 +24,10 @@
 
         <div class="tag-list">
             <div class="default-tag">시험</div>
+            <div class="normal-tag">면접</div>
+            <div class="normal-tag">진로</div>
+            <div class="normal-tag">일탈</div>
+            <div class="normal-tag">공부</div>
         </div>
 
         <div class="keep-card-list">
@@ -73,13 +77,15 @@
         </div>
     </div>
 
-    <footer class="footer" style="bottom:0;">
+    <footer class="footer">
         <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
         <img src='img/icon/icon_menu_tag_sel.png' onclick="location.href='keep.html'" class="icon">
         <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
         <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
         <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
     </footer>
+
+
     <script>
     $(function(){
         let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
@@ -99,7 +105,7 @@
 
                     keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
                 
-                    <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail()" >
+                    <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
 
                     `));
 
@@ -114,18 +120,46 @@
     
     });
 
-    function keep_detail() {
+    function keep_detail(id) {
 
         document.getElementById("keep-container").style.display = "none";
         document.getElementById("keep-detail").style.display = "block";
 
         let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
-        console.log(storedkeeps);
+        console.log(id);
 
-        /*$.getJSON("test-data.json", function(json) {
-            var cards = json;
-            console.log(cards);
-        }*/
+        $.getJSON("test-data.json", function(json) {
+            this.illust = json[id-1].illust
+
+            const data =  new Vue ({
+	            el: "#keep-detail",
+	            data: {
+                    id: "",
+		            cardname: "",
+		            analysis: "",
+		            keyword: "",
+		            luckynum: "",
+                    luckycolor: "",
+                    luckytime: "",
+                    illust: "",
+	            },
+
+	            methods: {
+		            drawcard: function(){
+			            let card = json[id-1]
+                        this.id = card.id
+			            this.cardname = card.cardname
+			            this.keyword = card.keyword
+                        this.analysis = card.analysis
+                        this.luckynum = card.luckynum
+                        this.luckycolor = card.luckycolor
+                        this.luckytime = card.luckytime
+                        this.illust = card.illust
+		            }
+
+	            }
+            })
+        });
     }
 
     </script>

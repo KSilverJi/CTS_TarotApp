@@ -81,12 +81,12 @@
     <!--결과화면-->
     <div id="choice-result">
         <div class="result-nav">
-            <img src="img/icon/icon_X.png" onclick="location.href='choice.html'" style="width:4vw;">
+            <img src="img/icon/icon_X.png" onclick="location.href='home.html'" style="width:4vw;">
             <img src="img/icon/icon_share.png" style="width:3vw; float:right;">
             <img src="img/icon/icon_tag_black.png" id="keep-btn" name="{{id}}" onclick="likeit()">
         </div>
         <div class="card">
-            <h2>화연님이 뽑으신 타로는</h2>
+            <h2 style="margin-bottom:1vh">화연님이 뽑으신 타로는</h2>
             <h2 class="cardname">{{ cardname }}</h2>
             <h2>카드입니다.</h2>
             <img src="{{ illust }}" class="card-illust">
@@ -133,7 +133,8 @@ function before_result() {
 var cards;
 
   $.getJSON("test-data.json", function(json){
-      
+      cards=json;
+
       const data =  new Vue ({
 	      el: "#app",
 	      data: {
@@ -149,14 +150,15 @@ var cards;
 
 	      methods: {
 		      drawcard: function(){
-			    let card = cards[Math.floor(Math.random()*cards.length)]
+			    let card = cards[Math.floor(Math.random()*22 + 22)] /* 22~43 중 랜덤 */
                 this.id = card.id
 			    this.cardname = card.cardname
 			    this.keyword = card.keyword
                 this.analysis = card.analysis
                 this.luckynum = card.luckynum
                 this.luckycolor = card.luckycolor
-                this.luckytime = card.luckytime
+                var time_split = card.luckytime.split(':')
+                this.luckytime = time_split[0] + '시 ' + time_split[1] + '분'
                 this.illust = card.illust
 
                 document.getElementById("before").style.display = "none";

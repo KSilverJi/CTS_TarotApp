@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>쉼;타로</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="format-detection" content="telephone=no"> <!--숫자를 전화로 자동링크 방지-->
+    
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--애플기종의 상단 주소줄 감춤-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">  <!--아이폰 주소창의 컬러값을 블랙으로 설정-->
+
+    <link rel="stylesheet" href="style.css">
+    <!--js-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--vue js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+
+</head>
+
+<body style="background:black; margin:0;">
+
+<!--카드 뒷면 선택-->
+<div id="app">
+    <div id="choice-card">
+        <div class="container" style="padding-top: 25%;">
+            <img src="img/공부_아이콘.png" class="circle">
+            <p style="margin-bottom: 8%;"><span style="font-weight:bold; font-size:18px;">공부타로</span>
+            <br><br>타로 카드 한 장을 골라주세요.<br>아래의 버튼을 눌러 카드를 섞을 수 있습니다.</p>
+            <div id="all-cards">
+                <!--<button v-on:click="shuffle">Shuffle</button>
+                <transition-group name="list-complete" class="list-complete" tag="section">
+                    <div class="list-complete-item" v-for="item in Items">
+                    <img :src="item.thumbnail">
+                    </span>
+                </transition-group>-->
+                <br>
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <br>
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <br>
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <br>
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+                <img src='img/back_of_card.png' class="back-of-card" onclick="before_result()">
+            </div>
+
+        <div class="shuffle">
+            <p style="cursor: pointer;">카드 섞기</p>
+        </div>
+
+        </div>
+
+    </div>
+    <!--결과 보기 전 -->
+    <div id="before">
+        <div class="container" style="padding-top: 40%; text-align: -webkit-center; padding-bottom:20%;%">
+            <a class="before-massage">타로 결과를 보시겠어요?</a>
+            <img src='img/back_of_card.png' class="before-back-of-card">
+            <div class="view-result" v-on:click="drawcard">결과 보기</div>
+            <div class="re-choice" onclick="location.href='choice.html'">다시 뽑기</div>
+        </div>
+    </div>
+
+    <!--결과화면-->
+    <div id="choice-result">
+        <div class="result-nav">
+            <img src="img/icon/icon_X.png" onclick="location.href='home.html'" style="width:4vw;">
+            <img src="img/icon/icon_share.png" style="width:3vw; float:right;">
+            <img src="img/icon/icon_tag_black.png" id="keep-btn" name="{{id}}" onclick="likeit()">
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom:1vh">화연님이 뽑으신 타로는</h2>
+            <h2 class="cardname">{{ cardname }}</h2>
+            <h2>카드입니다.</h2>
+            <img src="{{ illust }}" class="card-illust">
+            <br><img src="img/icon/icon_menu_main_black.png" style="width:10vw; margin:5vw;">
+            <h2 style="color: #000000;">- 타로 결과 -</h2>
+		    <h2 style="font-weight:bold;">{{ keyword }}</h2>
+		    <h2 style="font-weight: normal; font-style: normal; text-align:left;">{{ analysis }}</h2>
+		    <table style="text-align:left;">
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 숫자</h2>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckynum }}</h2>
+                </tr>
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 색깔</h2>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckycolor }}</h2>
+                </tr>
+                <tr>
+                    <td style="width:30vw;"><h2 style="text-align:left;">행운의 시간</h2></td>
+                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckytime }}</h2></td>
+                </tr>
+            </table>
+
+            <button class="btn" onclick="location.href='diary.html'">
+                다이어리 작성하기
+            </button>
+            <button class="btn" onclick="location.href='meditation.html'">
+                명상하기
+            </button>
+            <br><img src="img/icon/icon_menu_main_black.png" style="width:10vw; margin:5vw;">
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+/* 결과 보기 전 화면 */
+function before_result() {
+    document.getElementById("choice-card").style.display = "none";
+    document.getElementById("before").style.display = "block";
+}
+
+/* 타로 해석 */
+var cards;
+
+  $.getJSON("test-data.json", function(json){
+      cards=json;
+
+      const data =  new Vue ({
+	      el: "#app",
+	      data: {
+              id: "",
+		      cardname: "",
+		      analysis: "",
+		      keyword: "",
+		      luckynum: "",
+              luckycolor: "",
+              luckytime: "",
+              illust: "",
+	      },
+
+	      methods: {
+		      drawcard: function(){
+			    let card = cards[Math.floor(Math.random()*22 + 88)] /* 88~109 중 랜덤 */
+                this.id = card.id
+			    this.cardname = card.cardname
+			    this.keyword = card.keyword
+                this.analysis = card.analysis
+                this.luckynum = card.luckynum
+                this.luckycolor = card.luckycolor
+                var time_split = card.luckytime.split(':')
+                this.luckytime = time_split[0] + '시 ' + time_split[1] + '분'
+                this.illust = card.illust
+
+                document.getElementById("before").style.display = "none";
+                document.getElementById("choice-result").style.display = "block";
+		      }
+
+	      }
+      })
+  });
+
+/* 좋아요(KEEP) 누르기 */
+function likeit() {
+    document.getElementById("keep-btn").src = "img/icon/icon_tag_black_sel.png";
+
+    var card_id = document.getElementById("keep-btn").name;
+
+    var existingkeep = JSON.parse(localStorage.getItem("keeplist"));
+    if(existingkeep == null) {
+        existingkeep = [];
+    }
+
+    var entry = {
+        "id": card_id,
+    };
+    
+    localStorage.setItem("keep", JSON.stringify(entry));
+    // Save allEntries back to local storage
+    existingkeep.push(entry);
+    localStorage.setItem("keeplist", JSON.stringify(existingkeep));
+}
+
+</script>
+</body>

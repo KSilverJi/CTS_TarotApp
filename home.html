@@ -33,13 +33,13 @@
                 <img src='img/면접카드.png' class="theme-card" onclick="location.href='choice_2.html'">
             </div>
             <div>
-                <img src='img/진로카드.png' class="theme-card" onclick="location.href='choice.html'">
+                <img src='img/진로카드.png' class="theme-card" onclick="location.href='choice_3.html'">
             </div>
             <div>
-                <img src='img/일탈카드.png' class="theme-card" onclick="location.href='choice.html'">
+                <img src='img/일탈카드.png' class="theme-card" onclick="location.href='choice_4.html'">
             </div>
             <div>
-                <img src='img/공부카드.png' class="theme-card" onclick="location.href='choice.html'">
+                <img src='img/공부카드.png' class="theme-card" onclick="location.href='choice_5.html'">
             </div>
         </section>
 
@@ -100,9 +100,11 @@
 
                 /* 첫 번째 디데이만 가져옴 */
                 eventsList.filter(event =>  $('.d-day-circle').html(`
-                    <div class="d-day-title-view">
-                        <a style="font-size:6vw;" href="d-day.html">${event.eventText}
-                        D - ${ Math.ceil( (new Date(parseInt(event.eventDate.substr(4,8)), parseInt(event.eventDate.substr(2,2)), parseInt(event.eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }</a>
+                    <div class="d-day-title-view" onclick="location.href='d-day.html'">
+                        <a style="font-size:4vw;">${event.eventText}</a>
+                        <br>
+                        <hr style="width:50vw; border-color: #D2C39B;">
+                        <a style="font-size:7vw; font-weight:bold;">D - ${ Math.ceil( (new Date(parseInt(event.eventDate.substr(4,8)), parseInt(event.eventDate.substr(2,2)), parseInt(event.eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }</a>
                         </div>
                 `));
             }

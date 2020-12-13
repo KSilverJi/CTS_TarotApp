@@ -85,9 +85,11 @@
     background: #000000;
     border-radius:50%;
 
-    line-height: 120px;
     text-align: center;
-    
+}
+
+.d-day-title-view {
+    margin-top: 4vh;
 }
 
 a {
@@ -276,7 +278,6 @@ p {
 h2 {
     font-family: Noto Sans KR;
     font-style: normal;
-    font-weight: 500;
     font-size: 4vw;
     line-height: 26px;
     text-align: center;
@@ -692,7 +693,7 @@ html body .card#event .card-body .events-input .error{
     border: 0.5px solid #D2C39B;
     box-sizing: border-box;
     border-radius: 17px;
-    width: 18vw;
+    width: 19vw;
     text-align:center;
 
     font-style: normal;
@@ -700,6 +701,23 @@ html body .card#event .card-body .events-input .error{
     font-size: 3.5vw;
     line-height: 5vh;
     color: #5F5141;
+    display: inline-block;
+}
+
+.normal-tag {
+    background: #000000;
+    border: 0.5px solid #D2C39B;
+    box-sizing: border-box;
+    border-radius: 17px;
+    width: 19vw;
+    text-align:center;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.5vw;
+    line-height: 5vh;
+    color: #5F5141;
+    display: inline-block;
 }
 
 .keep-card-list {
@@ -714,6 +732,8 @@ html body .card#event .card-body .events-input .error{
     border: 1px solid #FFFFFF;
     box-sizing: border-box;
     border-radius: 10px;
+    margin-right:2vw;
+    margin-bottom:2vh;
 }
 
 #keep-detail {
