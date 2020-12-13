@@ -78,7 +78,7 @@ let year = c_date.getFullYear();
                 <img src='img/icon/icon_menu_tag.png' onclick="location.href='keep.html'" class="icon">
                 <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
                 <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
-                <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
+                <img src='img/icon/icon_menu_setting.png' onclick="location.href='setting.html'" class="icon">
             </footer>
         </div>
 

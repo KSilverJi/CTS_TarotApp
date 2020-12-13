@@ -688,12 +688,17 @@ html body .card#event .card-body .events-input .error{
 
 /* 보관함 Keep */
 
+#keep-container {
+    overflow: hidden;
+}
+
 .default-tag {
     background: #D2C39B;
     border: 0.5px solid #D2C39B;
     box-sizing: border-box;
     border-radius: 17px;
-    width: 19vw;
+    width: 19vw !important;
+    margin-right:2vw;
     text-align:center;
 
     font-style: normal;
@@ -709,7 +714,8 @@ html body .card#event .card-body .events-input .error{
     border: 0.5px solid #D2C39B;
     box-sizing: border-box;
     border-radius: 17px;
-    width: 19vw;
+    width: 19vw !important;
+    margin-right:2vw;
     text-align:center;
 
     font-style: normal;
@@ -739,5 +745,31 @@ html body .card#event .card-body .events-input .error{
 #keep-detail {
     display:none;
     background-image: url('img/background_2.png');
+    background-repeat : no-repeat;
+    background-size : cover;
+
+    padding-top:30%;
+    padding-left: 10%;
+    padding-right: 10%;
+    display: none;
+
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
+.keep-analysis {
+    font-weight: normal;
+    font-style: normal;
+    text-align:left;
+}
+
+.keep-luckynum {
+    font-weight:normal; text-align:left;
+}
+
+.keep-luckycolor {
+    font-weight:normal; text-align:left;
+}
+
+.keep-luckytime {
+    font-weight:normal; text-align:left;
+}

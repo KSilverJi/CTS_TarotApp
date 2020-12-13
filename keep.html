@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <!--js-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
 
 </head>
 
@@ -23,11 +24,11 @@
         </div>
 
         <div class="tag-list">
-            <div class="default-tag">시험</div>
-            <div class="normal-tag">면접</div>
-            <div class="normal-tag">진로</div>
-            <div class="normal-tag">일탈</div>
-            <div class="normal-tag">공부</div>
+            <div class="default-tag" id="test-tag">시험</div>
+            <div class="normal-tag" id="interview-tag">면접</div>
+            <div class="normal-tag" id="course-tag">진로</div>
+            <div class="normal-tag" id="devi-tag">일탈</div>
+            <div class="normal-tag" id="study-tag">공부</div>
         </div>
 
         <div class="keep-card-list">
@@ -39,31 +40,31 @@
     <!--결과화면-->
     <div id="keep-detail">
         <div class="result-nav">
-            <img src="img/icon/icon_X.png" onclick="location.href='choice.html'" style="width:4vw;">
+            <img src="img/icon/icon_X.png" onclick="history.go(0)" style="width:4vw;">
             <img src="img/icon/icon_share.png" style="width:3vw; float:right;">
             <img src="img/icon/icon_tag_black_sel.png" id="keep-btn" onclick="likeit()">
         </div>
         <div class="card">
             <h2>화연님이 뽑으신 타로는</h2>
-            <h2 class="cardname">{{ cardname }}</h2>
+            <h2 class="cardname"></h2>
             <h2>카드입니다.</h2>
-            <img src="{{ illust }}" class="card-illust">
+            <img src="" class="card-illust">
             <br><img src="img/icon/icon_menu_main_black.png" style="width:10vw; margin:5vw;">
             <h2 style="color: #000000;">- 타로 결과 -</h2>
-		    <h2 style="font-weight:bold;">{{ keyword }}</h2>
-		    <h2 style="font-weight: normal; font-style: normal; text-align:left;">{{ analysis }}</h2>
+		    <h2 class="keyword" style="font-weight:bold;"></h2>
+		    <h2 class="keep-analysis"></h2>
 		    <table style="text-align:left;">
                 <tr>
                     <td style="width:30vw;"><h2 style="text-align:left;">행운의 숫자</h2>
-                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckynum }}</h2>
+                    <td><h2 class="keep-luckynum"></h2>
                 </tr>
                 <tr>
                     <td style="width:30vw;"><h2 style="text-align:left;">행운의 색깔</h2>
-                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckycolor }}</h2>
+                    <td><h2 class="keep-luckycolor"></h2>
                 </tr>
                 <tr>
                     <td style="width:30vw;"><h2 style="text-align:left;">행운의 시간</h2></td>
-                    <td><h2 style="font-weight:normal; text-align:left;">{{ luckytime }}</h2></td>
+                    <td><h2 class="keep-luckytime"></h2></td>
                 </tr>
             </table>
 
@@ -77,17 +78,27 @@
         </div>
     </div>
 
-    <footer class="footer">
+    <footer class="footer" style="bottom:0;">
         <img src='img/icon/icon_menu_diary.png' onclick="location.href='diary.html'" class="icon">
         <img src='img/icon/icon_menu_tag_sel.png' onclick="location.href='keep.html'" class="icon">
         <img src='img/icon/icon_menu_main.png' onclick="location.href='home.html'" class="icon">
         <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
-        <img src='img/icon/icon_menu_setting.png' onclick="location.href=''" class="icon">
+        <img src='img/icon/icon_menu_setting.png' onclick="location.href='setting.html'" class="icon">
     </footer>
 
 
     <script>
     $(function(){
+
+        /* 태그 리스트 슬라이더 */
+        $('.tag-list').slick({
+            slide: 'div',
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows : false,
+        });
+
         let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
         $.getJSON("test-data.json", function(json) {
 
@@ -99,8 +110,12 @@
             }
             /* 디데이 데이터가 있을 경우 다 받아오기 */
             else{
-                let keepLists = Object.keys(storedkeeps).map(k => storedkeeps[k]);
+                /* 기본 값 : 시험 태그 */
+                /* 전체(all) 킵리스트에서 특정 id 범위 내 카드 지정 */
+                let keepLists_all = Object.keys(storedkeeps).map(k => storedkeeps[k]);
+                keepLists = keepLists_all.filter(x => {return x.id <= 22});
                 if(keepLists.length>0){
+                    
                     let keepLi ='';
 
                     keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
@@ -108,11 +123,93 @@
                     <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
 
                     `));
-
-            }
-                else{
-                    $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>>');
                 }
+
+                else{
+                    $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                }
+
+                $('#test-tag').click(function(){
+                    if(keepLists.length>0){
+                        keepLists = keepLists_all.filter(x => {return x.id <= 22});
+                        let keepLi ='';
+
+                        keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                        <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
+
+                        `));
+                    }
+                    else{
+                        $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                    }
+                })
+
+                
+                $('#interview-tag').click(function(){
+                    if(keepLists.length>0){
+                        keepLists = keepLists_all.filter(x => {return x.id > 22 && x.id <=44});
+                        let keepLi ='';
+
+                        keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                        <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
+
+                        `));
+                    }
+                    else{
+                        $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                    }
+                })
+
+                $('#course-tag').click(function(){
+                    if(keepLists.length>0){
+                        keepLists = keepLists_all.filter(x => {return x.id > 44 && x.id <= 66});
+                        let keepLi ='';
+
+                        keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                        <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
+
+                        `));
+                    }
+                    else{
+                        $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                    }
+                })
+
+                $('#devi-tag').click(function(){
+                    if(keepLists.length>0){
+                        keepLists = keepLists_all.filter(x => {return x.id > 66 && x.id <=88});
+                        let keepLi ='';
+
+                        keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                        <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
+
+                        `));
+                    }
+                    else{
+                        $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                    }
+                })
+
+                $('#study-tag').click(function(){
+                    if(keepLists.length>0){
+                        keepLists = keepLists_all.filter(x => {return x.id > 88 && x.id <= 110});
+                        let keepLi ='';
+
+                        keepLists.forEach(keep =>  $('.keep-card-list').html(keepLi +=`
+                
+                        <img src="${cards[keep.id-1].illust}" class="keep-img" onClick="keep_detail(${keep.id})" >
+
+                        `));
+                    }
+                    else{
+                        $('.keep-card-list').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>');
+                    }
+                })
+                
             }
 
 
@@ -120,46 +217,25 @@
     
     });
 
+    /* 카드 클릭했을 때 자세히 보기 */
     function keep_detail(id) {
 
         document.getElementById("keep-container").style.display = "none";
         document.getElementById("keep-detail").style.display = "block";
+        $('footer').css('display','none');
 
         let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
-        console.log(id);
 
         $.getJSON("test-data.json", function(json) {
-            this.illust = json[id-1].illust
-
-            const data =  new Vue ({
-	            el: "#keep-detail",
-	            data: {
-                    id: "",
-		            cardname: "",
-		            analysis: "",
-		            keyword: "",
-		            luckynum: "",
-                    luckycolor: "",
-                    luckytime: "",
-                    illust: "",
-	            },
-
-	            methods: {
-		            drawcard: function(){
-			            let card = json[id-1]
-                        this.id = card.id
-			            this.cardname = card.cardname
-			            this.keyword = card.keyword
-                        this.analysis = card.analysis
-                        this.luckynum = card.luckynum
-                        this.luckycolor = card.luckycolor
-                        this.luckytime = card.luckytime
-                        this.illust = card.illust
-		            }
-
-	            }
+            document.getElementsByClassName('cardname')[0].innerHTML = json[id-1].cardname;
+            document.getElementsByClassName('card-illust')[0].src = json[id-1].illust;
+            document.getElementsByClassName('keyword')[0].innerHTML = json[id-1].keyword;
+            document.getElementsByClassName('keep-analysis')[0].innerHTML = json[id-1].analysis;
+            document.getElementsByClassName('keep-luckynum')[0].innerHTML = json[id-1].luckynum;
+            document.getElementsByClassName('keep-luckycolor')[0].innerHTML = json[id-1].luckycolor;
+            var split_time = json[id-1].luckytime.split(':');
+            document.getElementsByClassName('keep-luckytime')[0].innerHTML = split_time[0] + '시 ' + split_time[1] + '분';
             })
-        });
     }
 
     </script>
