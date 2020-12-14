@@ -686,6 +686,84 @@ html body .card#event .card-body .events-input .error{
     margin: 8vw;
 }
 
+.music-btn {
+    background-color: black;
+    background-image: url('img/icon/명상하기_재생.png');
+    width: 82vw;
+    height: 8vh;
+    border:none;
+    background-repeat : round;
+    background-size : cover;
+}
+
+#timeline{
+	width: 80vw;
+	height: 1px;
+	margin-top: 20px;
+	float: left;
+	background: white;
+}
+
+#popup .end_meditation {
+    width:82vw;
+    padding: 4vw;
+
+    background:white;
+    color: #7C7C7C;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+#playhead-4{
+	width: 8vw;
+	height: 8vw;
+	border-radius: 50%;
+	margin-top: 1px;
+	background-image: url('img/icon/icon_menu_main.png');
+    background-size: cover;
+    margin-top:1vw;
+}
+
+#playhead-1{
+	width: 8vw;
+	height: 8vw;
+	border-radius: 50%;
+	margin-top: 1px;
+	background-image: url('img/icon/icon_menu_main.png');
+    background-size: cover;
+    margin-top:1vw;
+}
+
+#playhead-2{
+	width: 8vw;
+	height: 8vw;
+	border-radius: 50%;
+	margin-top: 1px;
+	background-image: url('img/icon/icon_menu_main.png');
+    background-size: cover;
+    margin-top:1vw;
+}
+
+#playhead-3{
+	width: 8vw;
+	height: 8vw;
+	border-radius: 50%;
+	margin-top: 1px;
+	background-image: url('img/icon/icon_menu_main.png');
+    background-size: cover;
+    margin-top:1vw;
+}
+
+
+#audioplayer{
+	width: 80vw;
+	margin: 4vh auto 8vh auto;
+    border: solid;
+}
+
+  
+
 /* 보관함 Keep */
 
 #keep-container {
