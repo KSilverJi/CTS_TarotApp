@@ -692,7 +692,7 @@ html body .card#event .card-body .events-input .error{
     overflow: hidden;
 }
 
-.default-tag {
+.normal-tag.default-tag {
     background: #D2C39B;
     border: 0.5px solid #D2C39B;
     box-sizing: border-box;

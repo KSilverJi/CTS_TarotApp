@@ -24,11 +24,12 @@
         </div>
 
         <div class="tag-list">
-            <div class="default-tag" id="test-tag">시험</div>
+            <div class="normal-tag default-tag" id="test-tag">시험</div>
             <div class="normal-tag" id="interview-tag">면접</div>
             <div class="normal-tag" id="course-tag">진로</div>
             <div class="normal-tag" id="devi-tag">일탈</div>
             <div class="normal-tag" id="study-tag">공부</div>
+            <div style="display: inline-block;"><img src="img/icon/icon_add.png" style="width:8vw; vertical-align:middle;"></div>
         </div>
 
         <div class="keep-card-list">
@@ -92,7 +93,6 @@
 
         /* 태그 리스트 슬라이더 */
         $('.tag-list').slick({
-            slide: 'div',
             infinite: false,
             slidesToShow: 3,
             slidesToScroll: 1,
@@ -130,6 +130,9 @@
                 }
 
                 $('#test-tag').click(function(){
+                    $('.default-tag').removeClass("default-tag");
+                    $('#test-tag').addClass("default-tag");
+
                     if(keepLists.length>0){
                         keepLists = keepLists_all.filter(x => {return x.id <= 22});
                         let keepLi ='';
@@ -147,6 +150,10 @@
 
                 
                 $('#interview-tag').click(function(){
+                    /* 태그 누르면 색 변경 */
+                    $('.default-tag').removeClass("default-tag");
+                    $('#interview-tag').addClass("default-tag");
+
                     if(keepLists.length>0){
                         keepLists = keepLists_all.filter(x => {return x.id > 22 && x.id <=44});
                         let keepLi ='';
@@ -163,6 +170,9 @@
                 })
 
                 $('#course-tag').click(function(){
+                    $('.default-tag').removeClass("default-tag");
+                    $('#course-tag').addClass("default-tag");
+                    
                     if(keepLists.length>0){
                         keepLists = keepLists_all.filter(x => {return x.id > 44 && x.id <= 66});
                         let keepLi ='';
@@ -179,6 +189,9 @@
                 })
 
                 $('#devi-tag').click(function(){
+                    $('.default-tag').removeClass("default-tag");
+                    $('#devi-tag').addClass("default-tag");
+
                     if(keepLists.length>0){
                         keepLists = keepLists_all.filter(x => {return x.id > 66 && x.id <=88});
                         let keepLi ='';
@@ -195,6 +208,9 @@
                 })
 
                 $('#study-tag').click(function(){
+                    $('.default-tag').removeClass("default-tag");
+                    $('#study-tag').addClass("default-tag");
+
                     if(keepLists.length>0){
                         keepLists = keepLists_all.filter(x => {return x.id > 88 && x.id <= 110});
                         let keepLi ='';
