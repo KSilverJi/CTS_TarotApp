@@ -139,11 +139,11 @@
 
             var cards = json
 
-            /* 로컬스토리지에 디데이 데이터가 없을 경우 */
+            /* 로컬스토리지에 보관한 데이터가 없을 경우 */
             if (storedkeeps == null){
                 $('.keep-card-list').html('<a style="line-height:60vh; t">keep한 카드가 없습니다.</a>');
             }
-            /* 디데이 데이터가 있을 경우 다 받아오기 */
+            /* 데이터가 있을 경우 다 받아오기 */
             else{
                 let keepLists = Object.keys(storedkeeps).map(k => storedkeeps[k]);
                 if(keepLists.length>0){
@@ -226,7 +226,7 @@
 
                 diaryLists.forEach(diary =>  $('.all-diary').html(diaryLi +=`
 
-                <img src="img/card-illust/${diary.card_name}.svg" class="diary-card-illust">
+                <img src="img/card-illust/${diary.card_name}.jpg" class="diary-card-illust">
                 <p style="float:left; font-size:2vw; line-height:4vw; color:#7C7C7C; width:50vw; text-align:left;">${diary.diary_content}</p><br>
                 <hr style="border: 0.5px solid #6F6F6F; width:100%;">
 

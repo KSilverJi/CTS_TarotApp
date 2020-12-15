@@ -29,7 +29,9 @@
             <div class="normal-tag" id="course-tag">진로</div>
             <div class="normal-tag" id="devi-tag">일탈</div>
             <div class="normal-tag" id="study-tag">공부</div>
-            <div style="display: inline-block;"><img src="img/icon/icon_add.png" style="width:8vw; vertical-align:middle;"></div>
+            <div style="display: inline-block;">
+                <img src="img/icon/icon_add.png" style="width:8vw; vertical-align:middle;" onclick="add_new_tag()">
+            </div>
         </div>
 
         <div class="keep-card-list">
@@ -43,10 +45,10 @@
         <div class="result-nav">
             <img src="img/icon/icon_X.png" onclick="history.go(0)" style="width:4vw;">
             <img src="img/icon/icon_share.png" style="width:3vw; float:right;">
-            <img src="img/icon/icon_tag_black_sel.png" id="keep-btn" onclick="likeit()">
+            <img src="img/icon/icon_tag_black_sel.png" id="keep-btn" onclick="not_likeit()">
         </div>
         <div class="card">
-            <h2>화연님이 뽑으신 타로는</h2>
+            <h2>화연님이 뽑으신 타로는</h2> <a class="card-id" name=""></a>
             <h2 class="cardname"></h2>
             <h2>카드입니다.</h2>
             <img src="" class="card-illust">
@@ -86,6 +88,32 @@
         <img src='img/icon/icon_menu_meditate.png' onclick="location.href='meditation.html'" class="icon">
         <img src='img/icon/icon_menu_setting.png' onclick="location.href='setting.html'" class="icon">
     </footer>
+
+<div id="add_tag_page" style="display:none;">
+    <h1 onclick="location.href='keep.html'" style="color:white; position: absolute; font-size:4vw; top:0; margin-top:6vh;">X</h1>
+    <div class="input-group-append" style="position:absolute; top:0; margin-top:6vh; right:10%;">
+        <h2>완료</h2>
+    </div>
+    <p style="font-weight:bold; margin-top:6vh;">태그 만들기</p>
+    <div style="margin:8vw; margin-top:8vh;">
+        <p style="text-align:left; font-size:3vw;">폴더 이름</p>
+        <input type="text" class="folder-input">
+        </input>
+        <p style="text-align:left; font-size:3vw; margin-top:8vw;">카드 추가</p>
+        <img src="img/icon/icon_add.png" style="width:8vw;" onclick="add_tag_card()">
+    </div>
+</div>
+
+<div id="add_tag_card_page" style="display:none;">
+    <form>
+        <h1 onclick="history.go(0)" style="color:white; position: absolute; font-size:4vw; top:0; margin-top:6vh;">X</h1>
+        <div class="input-group-append" style="position:absolute; top:0; margin-top:6vh; right:10%;">
+            <h2>완료</h2>
+        </div>
+        <p style="font-weight:bold; margin-top:6vh;">카드 추가</p>
+        <div class="stored_card"></div>
+    </form>
+</div>
 
 
     <script>
@@ -243,6 +271,7 @@
         let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
 
         $.getJSON("test-data.json", function(json) {
+            document.getElementsByClassName('card-id')[0].name = json[id-1].id;
             document.getElementsByClassName('cardname')[0].innerHTML = json[id-1].cardname;
             document.getElementsByClassName('card-illust')[0].src = json[id-1].illust;
             document.getElementsByClassName('keyword')[0].innerHTML = json[id-1].keyword;
@@ -252,6 +281,70 @@
             var split_time = json[id-1].luckytime.split(':');
             document.getElementsByClassName('keep-luckytime')[0].innerHTML = split_time[0] + '시 ' + split_time[1] + '분';
             })
+    }
+
+    function not_likeit() {
+        document.getElementById("keep-btn").src = "img/icon/icon_tag_black.png";
+
+        var card_id = document.getElementsByClassName('card-id')[0].name;
+
+        var existingkeep = JSON.parse(localStorage.getItem("keeplist"));
+        if(existingkeep == null) {
+            existingkeep = [];
+        }
+
+        var index_of_keep = existingkeep.findIndex(i => i.id == card_id);
+    
+        /* 카드 삭제 */
+        existingkeep.splice(index_of_keep,1); /* 선택한 카드의 인덱스값에서 1개를 제거 */
+        localStorage.setItem("keeplist", JSON.stringify(existingkeep));
+        }
+
+
+    /* 태그 만들기 */
+    function add_new_tag() {
+        document.getElementById("keep-container").style.display = "none";
+        document.getElementById("add_tag_page").style.display = "block";
+        $('footer').css('display','none');
+
+        let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
+    }
+
+    function add_tag_card() {
+        document.getElementById("add_tag_page").style.display = "none";
+        document.getElementById("add_tag_card_page").style.display = "block";
+
+        let storedkeeps = JSON.parse(localStorage.getItem('keeplist'));
+        $.getJSON("test-data.json", function(json) {
+
+            var cards = json
+
+            /* 로컬스토리지에 보관한 데이터가 없을 경우 */
+            if (storedkeeps == null){
+                $('.stored_card').html('<a style="line-height:60vh; t">keep한 카드가 없습니다.</a>');
+            }
+            /* 데이터가 있을 경우 다 받아오기 */
+            else{
+                let keepLists = Object.keys(storedkeeps).map(k => storedkeeps[k]);
+                if(keepLists.length>0){
+                    let keepLi ='';
+
+                    keepLists.forEach(keep =>  $('.stored_card').html(keepLi +=`
+                    
+                    <input type="checkbox" id="${cards[keep.id-1].id}" value="${cards[keep.id-1].id}">
+                        <label for="${cards[keep.id-1].id}"></label>
+                    <img src="${cards[keep.id-1].illust}" class="keep-img">
+
+                    `));
+                    
+                }
+                else{
+                    $('.stored_card').html('<a style="line-height:60vh;">keep한 카드가 없습니다.</a>>');
+                }
+            }
+
+
+        });
     }
 
     </script>

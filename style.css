@@ -88,9 +88,6 @@
     text-align: center;
 }
 
-.d-day-title-view {
-    margin-top: 4vh;
-}
 
 a {
     text-decoration: none;
@@ -134,7 +131,7 @@ p {
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: 300;
-    font-size: 15px;
+    font-size: 4vw;
     line-height: 22px;
     text-align: center;
 
@@ -166,6 +163,12 @@ p {
     box-sizing: border-box;
     border-radius: 3px;
     background: transparent;
+}
+
+.animated {
+    display:none;
+    width:100%;
+    margin-top:10vh;
 }
 
 .shuffle {
@@ -207,7 +210,10 @@ p {
     position: absolute;
 }
 
+
+
 /* 결과 보기 전 화면 */
+
 #before {
     display:none;
 }
@@ -820,6 +826,40 @@ html body .card#event .card-body .events-input .error{
     margin-bottom:2vh;
 }
 
+.folder-input {
+    background-color:black;
+    border-color:white;
+    width:80vw;
+    color:white;
+    padding-bottom:1vh;
+    border:none;
+    border-bottom:revert;
+    outline-style:none;
+}
+
+.stored_card {
+    margin-left:8vw;
+    margin-right:8vw;
+}
+
+input[type="checkbox"]+label {
+    display: inline-block;
+    position:absolute;
+    margin-left:18vw;
+    margin-top:1vh;
+    width: 4vw;
+    height: 4vw;
+    background: url('./img/icon/white_checkbox.png') no-repeat 0 0px / contain;
+}
+
+input[type='checkbox']:checked+label {
+    background: url('./img/icon/icon_check_sel.png') no-repeat 0 1px / contain;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
 #keep-detail {
     display:none;
     background-image: url('img/background_2.png');
@@ -850,4 +890,11 @@ html body .card#event .card-body .events-input .error{
 
 .keep-luckytime {
     font-weight:normal; text-align:left;
+}
+
+/* 설정 setting */
+#setting-container {
+    margin-top:7vh;
+    margin-left:8vw;
+    margin-right: 8vw;
 }

@@ -26,6 +26,7 @@
             <img src="img/진로_아이콘.png" class="circle">
             <p style="margin-bottom: 8%;"><span style="font-weight:bold; font-size:18px;">진로타로</span>
             <br><br>타로 카드 한 장을 골라주세요.<br>아래의 버튼을 눌러 카드를 섞을 수 있습니다.</p>
+            <img src="img/shuffle_card.gif" class="animated" onclick="before_result()">
             <div id="all-cards">
                 <!--<button v-on:click="shuffle">Shuffle</button>
                 <transition-group name="list-complete" class="list-complete" tag="section">
@@ -62,7 +63,7 @@
             </div>
 
         <div class="shuffle">
-            <p style="cursor: pointer;">카드 섞기</p>
+            <p style="cursor: pointer;" onclick="shuffle_card()">카드 섞기</p>
         </div>
 
         </div>
@@ -127,6 +128,11 @@
 function before_result() {
     document.getElementById("choice-card").style.display = "none";
     document.getElementById("before").style.display = "block";
+}
+
+function shuffle_card() {
+    document.getElementById("all-cards").style.display = "none";
+    document.getElementsByClassName("animated")[0].style.display = "block";
 }
 
 /* 타로 해석 */
