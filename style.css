@@ -713,6 +713,7 @@ html body .card#event .card-body .events-input .error{
 #popup .end_meditation {
     width:82vw;
     padding: 4vw;
+    text-align: center;
 
     background:white;
     color: #7C7C7C;
@@ -810,6 +811,10 @@ html body .card#event .card-body .events-input .error{
     display: inline-block;
 }
 
+#added_tags {
+    display: none;
+}
+
 .keep-card-list {
     text-align:left;
     color:white;
@@ -826,7 +831,7 @@ html body .card#event .card-body .events-input .error{
     margin-bottom:2vh;
 }
 
-.folder-input {
+#folder-input {
     background-color:black;
     border-color:white;
     width:80vw;
