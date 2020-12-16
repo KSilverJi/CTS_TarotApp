@@ -171,6 +171,24 @@ var cards;
                 document.getElementById("before").style.display = "none";
                 document.getElementById("choice-result").style.display = "block";
 
+                /* 타로 본 시간 저장 */
+                let now = new Date();
+
+                var existingtimer = JSON.parse(localStorage.getItem("timer"));
+                if(existingtimer == null) {
+                    existingtimer = [];
+                }
+
+                var entry = {
+                    "course_timer": now,
+                };
+    
+                localStorage.setItem("time", JSON.stringify(entry));
+                // Save allEntries back to local storage
+                existingtimer.push(entry);
+
+                localStorage.setItem("timer", JSON.stringify(existingtimer));
+
 		      }
 
 	      }

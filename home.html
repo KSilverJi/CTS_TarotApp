@@ -24,21 +24,21 @@
 <body style="margin:0; height: 100%;">
     <div class="container">
         <div class="d-day-circle"></div>
-        <h1>원하는 타로 주제를 정해보세요.</h1>
+        <h1 id="intro-text">원하는 타로 주제를 정해보세요.</h1>
         <section class="theme" data-sizes="50vw">
-            <div>
+            <div id="test-tarot">
                 <img src='img/시험카드.png' class="theme-card" onclick="location.href='choice.html'">
             </div>
-            <div>
+            <div id="interview-tarot">
                 <img src='img/면접카드.png' class="theme-card" onclick="location.href='choice_2.html'">
             </div>
-            <div>
+            <div id="course-tarot">
                 <img src='img/진로카드.png' class="theme-card" onclick="location.href='choice_3.html'">
             </div>
-            <div>
+            <div id="devi-tarot">
                 <img src='img/일탈카드.png' class="theme-card" onclick="location.href='choice_4.html'">
             </div>
-            <div>
+            <div id="study-tarot">
                 <img src='img/공부카드.png' class="theme-card" onclick="location.href='choice_5.html'">
             </div>
         </section>
@@ -57,7 +57,7 @@
     <script type="text/javascript" src="slick/slick.min.js"></script>
 
     <script type="text/javascript">
-    <!--카드 슬라이드 제이쿼리-->
+        /*카드 슬라이드 */
         $('.theme').slick({
             centerMode: true,
             centerPadding: '60px',
@@ -112,6 +112,39 @@
                 $('.d-day-circle').html('<a href="calendar.html" style="line-height:16vh;">D-Day를 설정해보세요</a> ');
             }
         }
+
+        /* 타로 뽑기 타이머 */
+        let target_time = JSON.parse(localStorage.getItem('timer'));
+        
+        if (target_time !== null) {
+            for(var i=0;i<target_time.length;i++){
+
+                if (target_time[i].test_timer !== undefined ) {
+                    $('#test-tarot').addClass("blur");
+                    $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>00:00:00");
+                }
+
+                if (target_time[i].interview_timer !== undefined ) {
+                    $('#interview-tarot').addClass("blur");
+                }
+
+                if (target_time[i].course_timer !== undefined ) {
+                    $('#course-tarot').addClass("blur");
+                }
+
+                if (target_time[i].devi_timer !== undefined ) {
+                    $('#devi-tarot').addClass("blur");
+                }
+
+                if (target_time[i].study_timer !== undefined ) {
+                    $('#study-tarot').addClass("blur");
+                }
+            }
+        }
+        else {
+            console.log("없다");
+        }
     })
+
     </script>
 </body>
