@@ -17,11 +17,10 @@
 
 <body style="background-color: black; margin:8vw;">
 
-    <!-- 디데이 ver2 -->
     <div style="text-align: center;">
         <img src="img/icon/icon_back.png" style="float:left; width:2vw; margin-top:4vh;" onclick="history.go(-1)">
         <p style="font-weight: bold; font-size: 4vw; display: inline-block">디데이</p>
-        <p style="font-weight: bold; font-size: 3.5vw; color: #D2C39B; float: right;" onclick="modify()'">수정</p>
+        <p id="modify" onclick="modify()">수정</p>
     </div>
     <br><br>
     <img src="img/ddayline.png" style="width:82vw;">
@@ -47,8 +46,8 @@
                 let eventsLi ='';
 
                 eventsList.forEach(event =>  $('.all-events').html(eventsLi +=`
-                <div class="d_day_list" role="alert">
-                <img src="img/icon/icon_delete.png" class="remove-event" style="position:absolute; width:4vw; left:0; top:0;" data-event-id="${event.id}" data-dismiss="alert" aria-label="Close">
+                <div class="d_day_list" role="alert" id="d-day-${event.id}">
+                <img src="img/icon/icon_delete.png" class="remove-event cant-delete" style="position:absolute; width:4vw; left:0; top:0;" data-event-id="${event.id}" data-dismiss="alert" aria-label="Close">
                 <img src="img/icon/icon_switch.png" style="width:5.5vw; position: absolute; top: 50%; right: 6vw; transform: translate(-50%, -50%);">
                 <img src="img/icon/icon_pin.png" style="width:2vw; position:absolute; top: 50%; transform: translate(-50%, -50%); right:17vw;">
 
@@ -65,11 +64,6 @@
             }
         }
 
-        function modify() {
-            document
-        }
-
-
         /* 디데이 삭제 */
         function removeEvent(id){
             let storedEvents = JSON.parse(localStorage.getItem('events'));
@@ -83,7 +77,13 @@
             let eventId = $(this).data('event-id');
             removeEvent(eventId);
         })
+        
     })
+    function modify() {
+        document.getElementById("modify").innerHTML = "완료";
+        $('.remove-event').removeClass("cant-delete");
+        $('.remove-event').addClass("can_delete");
+    }
 
     </script>
 </body>

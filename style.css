@@ -417,6 +417,26 @@ h2 {
     position: relative;
 }
 
+#modify {
+    font-weight: bold;
+    font-size: 3.5vw;
+    color: #D2C39B;
+    float: right;
+}
+
+.cant-delete {
+    display: none;
+}
+
+.can_delete {
+    display: block;
+}
+
+#d-day-1 {
+    background: #D2C39B;
+    color: #5F5141;
+}
+
 #only_view_img {
     width:4vw;
 }
