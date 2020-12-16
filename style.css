@@ -125,10 +125,8 @@ h1 {
     height: 4.5vh;
 }
 
-/* 클릭 불가, 블러 처리 */
 .blur {
     filter: blur(2px);
-    pointer-events: none;
 }
 
 /* 타로카드 선택 화면 */

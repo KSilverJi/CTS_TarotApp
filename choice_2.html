@@ -171,8 +171,10 @@ var cards;
                 document.getElementById("before").style.display = "none";
                 document.getElementById("choice-result").style.display = "block";
 
-                /* 타로 본 시간 저장 */
-                let now = new Date();
+                /* 타로 본 시간에 하루를 더해서 저장 */
+                let due_time = new Date();
+                due_time.setDate(due_time.getDate()+1);
+                var full_context = due_time.toTimeString();
 
                 var existingtimer = JSON.parse(localStorage.getItem("timer"));
                 if(existingtimer == null) {
@@ -180,11 +182,10 @@ var cards;
                 }
 
                 var entry = {
-                    "interview_timer": now,
+                    "interview_timer": full_context,
                 };
     
                 localStorage.setItem("time", JSON.stringify(entry));
-                // Save allEntries back to local storage
                 existingtimer.push(entry);
 
                 localStorage.setItem("timer", JSON.stringify(existingtimer));

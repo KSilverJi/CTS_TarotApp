@@ -26,20 +26,20 @@
         <div class="d-day-circle"></div>
         <h1 id="intro-text">원하는 타로 주제를 정해보세요.</h1>
         <section class="theme" data-sizes="50vw">
-            <div id="test-tarot">
-                <img src='img/시험카드.png' class="theme-card" onclick="location.href='choice.html'">
+            <div id="test-tarot" onclick="location.href='choice.html'">
+                <img src='img/시험카드.png' class="theme-card">
             </div>
-            <div id="interview-tarot">
-                <img src='img/면접카드.png' class="theme-card" onclick="location.href='choice_2.html'">
+            <div id="interview-tarot" onclick="location.href='choice_2.html'">
+                <img src='img/면접카드.png' class="theme-card">
             </div>
-            <div id="course-tarot">
-                <img src='img/진로카드.png' class="theme-card" onclick="location.href='choice_3.html'">
+            <div id="course-tarot" onclick="location.href='choice_3.html'">
+                <img src='img/진로카드.png' class="theme-card">
             </div>
-            <div id="devi-tarot">
-                <img src='img/일탈카드.png' class="theme-card" onclick="location.href='choice_4.html'">
+            <div id="devi-tarot" onclick="location.href='choice_4.html'">
+                <img src='img/일탈카드.png' class="theme-card">
             </div>
-            <div id="study-tarot">
-                <img src='img/공부카드.png' class="theme-card" onclick="location.href='choice_5.html'">
+            <div id="study-tarot" onclick="location.href='choice_5.html'">
+                <img src='img/공부카드.png' class="theme-card">
             </div>
         </section>
 
@@ -84,8 +84,8 @@
             ]
         });
 
-    /* 디데이 받아오기 */
     $(function(){
+        /* 디데이 받아오기 */
         let storedEvents = JSON.parse(localStorage.getItem('events'));
     
         /* 로컬스토리지에 디데이 데이터가 없을 경우 */
@@ -117,32 +117,237 @@
         let target_time = JSON.parse(localStorage.getItem('timer'));
         
         if (target_time !== null) {
+            /* 5번 루프를 돌면서, 각 테마별 타이머가 있는지 확인 */
             for(var i=0;i<target_time.length;i++){
-
+                
+                /* 시험 타이머가 있는지 확인 */
                 if (target_time[i].test_timer !== undefined ) {
+                    
+                    var existing_target = target_time[i];
                     $('#test-tarot').addClass("blur");
-                    $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>00:00:00");
+                    $('#test-tarot').removeAttr("onclick");
+
+                    // 1초에 한번씩 시간을 갱신하며 time_goes 함수를 실행한다.
+                    tid = setInterval(time_goes_1, 1000);
+
+                    var data = existing_target.test_timer; /* 받아온 시간 */
+                    var time_data = data.substring(0,8).split(':'); /* 시간, 분, 초로 나누고 이를 target에 할당할 것 */
+
+                    var target_1 = new Date();
+                    var now = new Date();
+                    target_1.setDate(target_1.getDate()+1);
+                    target_1.setHours(time_data[0]);
+                    target_1.setMinutes(time_data[1]);
+                    target_1.setSeconds(time_data[2]);
+
+                    function time_goes_1() {
+                        var diff = target_1 - now;
+                        var ti = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        /* 시간이 다 되면 */
+                        if (diff <= 0) {
+                            existing_target = target_time.splice(i,1);
+                            localStorage.setItem("timer", JSON.stringify(existing_target));
+                            $('#test-tarot').removeClass("blur");
+                            
+                            clearInterval(tid);
+                            console.log("시간끝");
+                            location.reload();
+                        }
+                    
+                        /* 최종 남은 시간 */
+                        let remain_time = ti +":"+ min +":"+ sec;
+
+                        $('#test-tarot').click( function() {
+                            $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>"+ remain_time);
+                        } );
+                    }
                 }
 
+
+                /* 면접2 */
                 if (target_time[i].interview_timer !== undefined ) {
+                    var existing_target = target_time[i];
                     $('#interview-tarot').addClass("blur");
+                    $('#interview-tarot').removeAttr("onclick");
+
+                    // 1초에 한번씩 시간을 갱신하며 time_goes 함수를 실행한다.
+                    tid = setInterval(time_goes_2, 1000);
+
+                    var data = existing_target.interview_timer; /* 받아온 시간 */
+                    var time_data = data.substring(0,8).split(':'); /* 시간, 분, 초로 나누고 이를 target에 할당할 것 */
+                    var target_2 = new Date();
+                    var now = new Date();
+                    target_2.setDate(target_2.getDate()+1);
+                    target_2.setHours(time_data[0]);
+                    target_2.setMinutes(time_data[1]);
+                    target_2.setSeconds(time_data[2]);
+
+                    function time_goes_2() {
+
+                        var diff = target_2 - now;
+                        var ti = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        /* 시간이 다 되면 */
+                        if (diff <= 0) {
+                            existing_target = target_time.splice(i,1);
+                            localStorage.setItem("timer", JSON.stringify(existing_target));
+                            $('#interview-tarot').removeClass("blur");
+                            
+                            clearInterval(tid);
+                            console.log("시간끝");
+                            location.reload();
+                        }
+                    
+                        /* 최종 남은 시간 */
+                        let remain_time = ti +":"+ min +":"+ sec;
+
+                        $('#interview-tarot').click( function() {
+                            $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>"+ remain_time);
+                        } );
+                    }
                 }
 
+                /* 진로3 */
                 if (target_time[i].course_timer !== undefined ) {
+                    var existing_target = target_time[i];
                     $('#course-tarot').addClass("blur");
+                    $('#course-tarot').removeAttr("onclick");
+
+                    // 1초에 한번씩 시간을 갱신하며 time_goes 함수를 실행한다.
+                    tid = setInterval(time_goes_3, 1000);
+                    
+                    var data = existing_target.course_timer; /* 받아온 시간 */
+                    var time_data = data.substring(0,8).split(':'); /* 시간, 분, 초로 나누고 이를 target에 할당할 것 */
+                    var target_3 = new Date();
+                    var now = new Date();
+                    target_3.setDate(target_3.getDate()+1);
+                    target_3.setHours(time_data[0]);
+                    target_3.setMinutes(time_data[1]);
+                    target_3.setSeconds(time_data[2]);
+
+                    function time_goes_3() {
+
+                        var diff = target_3 - now;
+                        var ti = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        /* 시간이 다 되면 */
+                        if (diff <= 0) {
+                            existing_target = target_time.splice(i,1);
+                            localStorage.setItem("timer", JSON.stringify(existing_target));
+                            $('#course-tarot').removeClass("blur");
+                            
+                            clearInterval(tid);
+                            console.log("시간끝");
+                            location.reload();
+                        }
+                    
+                        /* 최종 남은 시간 */
+                        let remain_time = ti +":"+ min +":"+ sec;
+
+                        $('#course-tarot').click( function() {
+                            $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>"+ remain_time);
+                        } );
+                    }
                 }
 
+
+                /* 일탈4 */
                 if (target_time[i].devi_timer !== undefined ) {
+                    var existing_target = target_time[i];
                     $('#devi-tarot').addClass("blur");
+                    $('#devi-tarot').removeAttr("onclick");
+
+                    // 1초에 한번씩 시간을 갱신하며 time_goes 함수를 실행한다.
+                    tid = setInterval(time_goes_4, 1000);
+                    
+                    var data = existing_target.devi_timer; /* 받아온 시간 */
+                    var time_data = data.substring(0,8).split(':'); /* 시간, 분, 초로 나누고 이를 target에 할당할 것 */
+                    var target_4 = new Date();
+                    var now = new Date();
+                    target_4.setDate(target_4.getDate()+1);
+                    target_4.setHours(time_data[0]);
+                    target_4.setMinutes(time_data[1]);
+                    target_4.setSeconds(time_data[2]);
+
+                    function time_goes_4() {
+
+                        var diff = target_4 - now;
+                        var ti = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        var sec = Math.floor((diff % (1000 * 60)) / 1000);
+                        
+                        /* 시간이 다 되면 */
+                        if (diff <= 0) {
+                            existing_target = target_time.splice(i,1);
+                            localStorage.setItem("timer", JSON.stringify(existing_target));
+                            $('#devi-tarot').removeClass("blur");
+                            
+                            clearInterval(tid);
+                            console.log("시간끝");
+                            location.reload();
+                        }
+                    
+                        /* 최종 남은 시간 */
+                        let remain_time = ti +":"+ min +":"+ sec;
+
+                        $('#devi-tarot').click( function() {
+                            $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>"+ remain_time);
+                        } );
+                    }
                 }
 
+                /* 공부5 */
                 if (target_time[i].study_timer !== undefined ) {
+                    var existing_target = target_time[i];
                     $('#study-tarot').addClass("blur");
+                    $('#study-tarot').removeAttr("onclick");
+
+                    // 1초에 한번씩 시간을 갱신하며 time_goes 함수를 실행한다.
+                    tid = setInterval(time_goes_5, 1000);
+                    
+                    var data = existing_target.study_timer; /* 받아온 시간 */
+                    var time_data = data.substring(0,8).split(':'); /* 시간, 분, 초로 나누고 이를 target에 할당할 것 */
+                    var target_5 = new Date();
+                    var now = new Date();
+                    target_5.setDate(target_5.getDate()+1);
+                    target_5.setHours(time_data[0]);
+                    target_5.setMinutes(time_data[1]);
+                    target_5.setSeconds(time_data[2]);
+
+                    function time_goes_5() {
+
+                        var diff = target_5 - now;
+                        var ti = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        var sec = Math.floor((diff % (1000 * 60)) / 1000);
+
+                        /* 시간이 다 되면 */
+                        if (diff <= 0) {
+                            existing_target = target_time.splice(i,1);
+                            localStorage.setItem("timer", JSON.stringify(existing_target));
+                            $('#study-tarot').removeClass("blur");
+                            
+                            clearInterval(tid);
+                            console.log("시간끝");
+                            location.reload();
+                        }
+                    
+                        /* 최종 남은 시간 */
+                        let remain_time = ti +":"+ min +":"+ sec;
+
+                        $('#study-tarot').click( function() {
+                            $('#intro-text').html("다시 뽑을 수 있을 때까지 남은 시간<br>"+ remain_time);
+                        } );
+                    }
                 }
             }
-        }
-        else {
-            console.log("없다");
         }
     })
 
