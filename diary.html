@@ -38,8 +38,8 @@
         </div>
 
         <hr style="border: 0.5px solid #6F6F6F; width:62vw; float:left; margin-top:2.5vh; margin-bottom:3vh; margin-right:4vw;">
-        <img src="img/icon/diary_img_view.png" style="width:4vw;">
-        <img src="img/icon/diary_text_sel.png" style="width:4vw; margin-left:3vw; margin-top:2vw;">
+        <img src="img/icon/diary_img_view.png" id="only_view_img" onclick="only_img_view()">
+        <img src="img/icon/diary_text_sel.png" id="view_text_img">
 
         <div class = "all-diary" style="text-align:center;"></div>
         
@@ -89,25 +89,17 @@
         }
         /* 디데이 데이터가 있을 경우 다 받아오기 */
         else{
-            let eventsList = Object.keys(storedEvents).map(k => storedEvents[k]);
-            if(eventsList.length>0){
-                let eventsLi ='';
+            /* 첫 번째 디데이만 가져옴 */
+            $('.d-day-title').html(`
+                <img src="img/icon/icon_add.png" onclick="location.href='d-day.html'" style="float:right; width:9vw;">
+                <div class="d-day-title-view">
+                    ${storedEvents[0].eventText}
+                    D - ${ Math.ceil( (new Date(parseInt(storedEvents[0].eventDate.substr(4,8)), parseInt(storedEvents[0].eventDate.substr(2,2)), parseInt(storedEvents[0].eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }
 
-                /* 첫 번째 디데이만 가져옴 */
-                eventsList.filter(event =>  $('.d-day-title').html(`
-                    <img src="img/icon/icon_add.png" onclick="location.href='d-day.html'" style="float:right; width:9vw;">
-                    <div class="d-day-title-view">
-                        ${event.eventText}
-                        D - ${ Math.ceil( (new Date(parseInt(event.eventDate.substr(4,8)), parseInt(event.eventDate.substr(2,2)), parseInt(event.eventDate.substr(0,2))).getTime()-new Date().getTime() ) /(1000 * 60 * 60 * 24) ) }
-
-                        <br>
-                        <span class="d-day-message">좀 더 여유로운 마음을 가져도 좋을 것 같아요.</span>
-                        </div>
-                `));
-            }
-            else{
-                $('.d-day-title').html('<a>캘린더에서 D-Day를 설정해보세요</a>');
-            }
+                    <br>
+                    <span class="d-day-message">좀 더 여유로운 마음을 가져도 좋을 것 같아요.</span>
+                </div>
+            `);
         }
     })
 
@@ -188,9 +180,15 @@
     function save_new_diary() {
         var diary_content = $('#diary_content').text();
         var diary_card_name = $('#select_card_name').text();
+        
+        const saved_day = new Date();
 
-        var diary_date = $('#write_date').text();
-        console.log(diary_date);
+        /* 요일 구하기 */
+        var week = new Array('일', '월', '화', '수', '목', '금', '토,')
+        var day = week[saved_day.getDay()]
+
+        /* 최종 날짜 데이터 */
+        var diary_save_date = saved_day.getMonth() + '월 ' + saved_day.getDate() + '일 (' + day + ')'
 
         var existingdiary = JSON.parse(localStorage.getItem("diary"));
 
@@ -201,6 +199,7 @@
         var entry = {
             "diary_content": diary_content,
             "card_name": diary_card_name,
+            "save_day": diary_save_date
         };
     
         localStorage.setItem("diary", JSON.stringify(entry));
@@ -227,19 +226,33 @@
                 diaryLists.forEach(diary =>  $('.all-diary').html(diaryLi +=`
 
                 <img src="img/card-illust/${diary.card_name}.jpg" class="diary-card-illust">
+                <h1 style="text-align:left; font-size:4vw; font-weight:bold; margin-bottom:0; margin-top:4vw;">${diary.save_day}</h1>
                 <p style="float:left; font-size:2vw; line-height:4vw; color:#7C7C7C; width:50vw; text-align:left;">${diary.diary_content}</p><br>
                 <hr style="border: 0.5px solid #6F6F6F; width:100%;">
 
                 `));
-
-        }
+            }
             else{
                 $('.all-diary').html('<a style="line-height:50vh; display: inline-block;">다이어리를 작성해 보세요.</a>');
             }
         }
-
-    
     });
+
+    function only_img_view() {
+        document.getElementById("only_view_img").src = "img/icon/diary_img_sel.png";
+        document.getElementById("view_text_img").src = "img/icon/diary_text.png";
+
+        let storeddiary = JSON.parse(localStorage.getItem('diary'));
+        let diaryLists = Object.keys(storeddiary).map(k => storeddiary[k]);
+            if(diaryLists.length>0){
+                let diaryLi ='';
+
+                diaryLists.forEach(diary =>  $('.all-diary').html(diaryLi +=`
+
+                <img src="img/card-illust/${diary.card_name}.jpg" class="diary-card-illust" style="clear:none; margin-right:3vw; margin-left:3vw;">
+                `));
+            }
+    }
 
 
     </script>

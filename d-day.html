@@ -21,9 +21,11 @@
     <div style="text-align: center;">
         <img src="img/icon/icon_back.png" style="float:left; width:2vw; margin-top:4vh;" onclick="history.go(-1)">
         <p style="font-weight: bold; font-size: 4vw; display: inline-block">디데이</p>
-        <p style="font-weight: bold; font-size: 3.5vw; color: #D2C39B; float: right;" onclick="location.href='diary.html'">완료</p>
+        <p style="font-weight: bold; font-size: 3.5vw; color: #D2C39B; float: right;" onclick="modify()'">수정</p>
     </div>
-    <br><br><br><br>
+    <br><br>
+    <img src="img/ddayline.png" style="width:82vw;">
+    <br><br>
     <!-- 이벤트 리스트 -->
     <div class="all-events">
 
@@ -61,6 +63,10 @@
             else{
                 $('.all-events').html('<a class="text-center">등록된 디데이가 없습니다.</a class="text-center">');
             }
+        }
+
+        function modify() {
+            document
         }
 
 
