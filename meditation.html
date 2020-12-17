@@ -35,7 +35,7 @@
         </div>
     </div>
     
-        <div id="medi-theme">
+        <div id="medi-theme" style="margin-left:8vw;">
             <img src="img/medi/1.png" id="1" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
             <img src="img/medi/2.png" id="2" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
             <img src="img/medi/3.png" id="3" onclick="select_theme(id)" style="margin-right:2vw; width:26vw;">
@@ -133,11 +133,11 @@ $.getJSON("saying.json", function(json){
 
 /* 명상 테마 고르기 */
 $('#medi-theme').slick({
-  infinite: true,
+  infinite: false,
   slidesToShow: 3,
   slidesToScroll: 1,
   arrows:false,
-  centerMode: true,
+  centerMode: false,
   centerPadding:'40px'
 });
 
