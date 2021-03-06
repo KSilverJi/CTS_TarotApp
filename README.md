@@ -1,5 +1,8 @@
 # CTS_TarotApp
-콘텐츠 시스템 프로젝트 과제 : 타로앱
+취준생을 위한 힐링 타로 : 쉼;타로
+(2020.09 ~ 2020.12; 개발 전담) 
+
+
 ![콘시프_쉼타로_완전최종-01](https://user-images.githubusercontent.com/37402252/110214192-e4bb7380-7ee6-11eb-9c5d-d62e9b306f8e.jpg)
 ![콘시프_쉼타로_완전최종-02](https://user-images.githubusercontent.com/37402252/110214193-e5eca080-7ee6-11eb-8120-bebd7ef6a246.jpg)
 ![콘시프_쉼타로_완전최종-03](https://user-images.githubusercontent.com/37402252/110214194-e6853700-7ee6-11eb-833e-445069c9da91.jpg)
