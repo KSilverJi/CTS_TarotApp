@@ -7,7 +7,7 @@ Javascript
 Vue.js
 HTML CSS
 
-### 배포 : https://shim-tarot.netlify.app/
+### 배포 : https://shim-tarot.netlify.app/ (모바일 환경 권장)
 
 ![콘시프_쉼타로_완전최종-01](https://user-images.githubusercontent.com/37402252/110214192-e4bb7380-7ee6-11eb-9c5d-d62e9b306f8e.jpg)
 ![콘시프_쉼타로_완전최종-02](https://user-images.githubusercontent.com/37402252/110214193-e5eca080-7ee6-11eb-8120-bebd7ef6a246.jpg)
